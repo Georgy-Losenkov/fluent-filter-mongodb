@@ -22,9 +22,8 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Generate files
-      run: dotnet build --no-restore --configuration Release --verbosity quiet ./src/FluentFilter.MongoDB/FluentFilter.MongoDB.csproj
+      run: dotnet msbuild -target:src\FluentFilter_MongoDB:YaccLexToolsGppg
     - name: Build
-      if: always()
       run: dotnet build --no-restore --configuration Release
     - name: Test
       run: dotnet test --no-restore --no-build --configuration Release --verbosity normal
