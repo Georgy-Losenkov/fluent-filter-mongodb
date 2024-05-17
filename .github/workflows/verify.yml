@@ -12,9 +12,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Setup .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: |
           6.0.x
@@ -22,7 +22,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Generate files
-      run: dotnet build --no-restore --configuration Release --verbosity quiet src/FluentFilter.MongoDB
+      run: dotnet msbuild -t:YaccLexToolsGppg;YaccLexToolsGplex src/FluentFilter.MongoDB
     - name: Build
       run: dotnet build --no-restore --configuration Release
     - name: Test
