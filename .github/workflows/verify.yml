@@ -22,7 +22,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Generate files
-      run: dotnet build --no-restore --configuration Release --verbosity quiet src\FluentFilter.MongoDB
+      run: dotnet build --no-restore --configuration Release --verbosity quiet src/FluentFilter.MongoDB
     - name: Build
       run: dotnet build --no-restore --configuration Release
     - name: Test
