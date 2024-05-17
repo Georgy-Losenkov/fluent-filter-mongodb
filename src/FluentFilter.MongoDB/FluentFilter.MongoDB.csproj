@@ -1,0 +1,77 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <RootNamespace></RootNamespace>
+        <LangVersion>11.0</LangVersion>
+        <ImplicitUsings>disable</ImplicitUsings>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <VersionPrefix>0.5.1</VersionPrefix>
+        <Authors>losenkov</Authors>
+        <Description>Provides a way to create filters for MongoDB.Driver using text plain text.</Description>
+        <PackageTags>elksoft;mongo;mongodb;filter;fluent</PackageTags>
+        <PackageProjectUrl>https://github.com/Georgy-Losenkov/mongodb-driver-filter-fluent</PackageProjectUrl>
+        <PackageLicenseUrl></PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/Georgy-Losenkov/mongodb-driver-filter-fluent.git</RepositoryUrl>
+        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+        <RepositoryType>git</RepositoryType>
+        <PackageId></PackageId>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <DefineConstants>$(DefineConstants);NOFILES</DefineConstants>
+        <CodeAnalysisRuleSet />
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <DefineConstants>$(DefineConstants);TRACE_ACTIONS</DefineConstants>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+            <_Parameter1>$(MSBuildProjectName).UnitTests</_Parameter1>
+        </AssemblyAttribute>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+            <_Parameter1>$(MSBuildProjectName).IntegrationTests</_Parameter1>
+        </AssemblyAttribute>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.9.2" PrivateAssets="all" />
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp.CodeStyle" Version="4.9.2" PrivateAssets="all" />
+        <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="8.0.0" PrivateAssets="all" />
+        <PackageReference Include="MongoDB.Bson" Version="2.11.0" />
+        <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="all" />
+        <PackageReference Include="YaccLexTools" Version="1.2.2" PrivateAssets="all" />
+    </ItemGroup>
+
+    <ItemGroup Label="Expression-ParsingFiles">
+        <LexFile Include="MongoDB.Driver.Parsing\Expression.Language.analyzer.lex">
+            <OutputFile>MongoDB.Driver.Parsing\ExpressionScanner.Generated.cs</OutputFile>
+        </LexFile>
+        <YaccFile Include="MongoDB.Driver.Parsing\Expression.Language.grammar.y">
+            <OutputFile>MongoDB.Driver.Parsing\ExpressionParser.Generated.cs</OutputFile>
+            <Arguments>/gplex /nolines /report /verbose</Arguments>
+        </YaccFile>
+        <None Include="MongoDB.Driver.Parsing\ExpressionParser.Generated.cs">
+            <AutoGen>True</AutoGen>
+            <DesignTime>True</DesignTime>
+            <DependentUpon>Expression.Language.grammar.y</DependentUpon>
+        </None>
+        <None Include="MongoDB.Driver.Parsing\ExpressionScanner.Generated.cs">
+            <AutoGen>True</AutoGen>
+            <DesignTime>True</DesignTime>
+            <DependentUpon>Expression.Language.analyzer.lex</DependentUpon>
+        </None>
+        <None Include="GplexBuffers.cs" />
+        <Compile Remove="GplexBuffers.cs" />
+        <None Include="ShiftReduceParserCode.cs" />
+        <Compile Remove="ShiftReduceParserCode.cs" />
+    </ItemGroup>
+
+    <ItemGroup Label="Style-Cop">
+        <None Include="stylecop.json" />
+        <AdditionalFiles Include="stylecop.json" />
+    </ItemGroup>
+</Project>
