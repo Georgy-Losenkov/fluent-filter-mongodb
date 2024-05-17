@@ -22,7 +22,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Generate files
-      run: dotnet msbuild -target:src\\FluentFilter_MongoDB:YaccLexToolsGppg
+      run: dotnet msbuild -target:src\\FluentFilter_MongoDB:YaccLexToolsGppg -target:src\\FluentFilter_MongoDB:YaccLexToolsGplex
     - name: Build
       run: dotnet build --no-restore --configuration Release
     - name: Test
