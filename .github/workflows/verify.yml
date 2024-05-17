@@ -19,10 +19,12 @@ jobs:
         dotnet-version: |
           6.0.x
           7.0.x
+    - name: PWD
+      run: pwd
     - name: Restore dependencies
       run: dotnet restore
     - name: Generate files
-      run: dotnet msbuild -t:YaccLexToolsGppg;YaccLexToolsGplex ./src/FluentFilter.MongoDB
+      run: dotnet msbuild -t:YaccLexToolsGppg;YaccLexToolsGplex ./src/FluentFilter.MongoDB/FluentFilter.MongoDB.csproj
     - name: Build
       run: dotnet build --no-restore --configuration Release
     - name: Test
