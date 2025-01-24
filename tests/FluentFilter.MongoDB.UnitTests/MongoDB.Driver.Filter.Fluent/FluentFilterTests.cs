@@ -127,6 +127,23 @@ public class FluentFilterTests
             MongoFilterBuilder.Positive.CreateIn("E", new BsonArray { "abc", "def" }));
     }
 
+    public static IEnumerable<Object[]> EmptyData()
+    {
+        var result = new TheoryData<String, IEnumerable<KeyValuePair<String, BsonValue>>, BsonDocument>();
+
+        foreach (var text in new[] { String.Empty, " ", "\r", "\n", "\t" })
+        {
+            var document = new BsonDocument();
+
+            result.Add(
+                text,
+                new Dictionary<String, BsonValue>(),
+                document);
+        }
+
+        return result;
+    }
+
     public static IEnumerable<Object[]> ComparisonData()
     {
         const String ExpressionText = "Expression+Text";
@@ -774,6 +791,7 @@ public class FluentFilterTests
     }
 
     [Theory]
+    [MemberData(nameof(EmptyData))]
     [MemberData(nameof(ComparisonData))]
     [MemberData(nameof(BetweenData))]
     [MemberData(nameof(MatchData))]
@@ -823,7 +841,6 @@ public class FluentFilterTests
     }
 
     [Theory]
-    [InlineData("")]
     [InlineData("A")]
     [InlineData("A ==")]
     [InlineData("A == B")]

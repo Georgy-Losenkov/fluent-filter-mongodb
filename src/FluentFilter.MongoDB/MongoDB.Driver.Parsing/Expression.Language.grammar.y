@@ -20,6 +20,7 @@
 
 filter
     : orGroup                                     { Success($1.Index); }
+    |                                             { Success(-1); }
     ;
 
 orGroup
