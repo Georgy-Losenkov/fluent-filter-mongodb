@@ -39,6 +39,17 @@ public class FluentFilterTests
         result.Should().BeEquivalentTo(Samples.Instance.Data);
     }
 
+    public static IEnumerable<Object[]> Data0()
+    {
+        return new TheoryData<String, Func<TestModel, Boolean>> {
+            { String.Empty, x => true },
+            { " ", x => true },
+            { "\r", x => true },
+            { "\n", x => true },
+            { "\t", x => true },
+        };
+    }
+
     public static IEnumerable<Object[]> Data1()
     {
         var dateSample = Samples.Instance.Dates[Samples.Instance.Dates.Count / 2];
@@ -618,6 +629,7 @@ public class FluentFilterTests
     }
 
     [Theory]
+    [MemberData(nameof(Data0))]
     [MemberData(nameof(Data1))]
     [MemberData(nameof(Data2))]
     [MemberData(nameof(Data3))]

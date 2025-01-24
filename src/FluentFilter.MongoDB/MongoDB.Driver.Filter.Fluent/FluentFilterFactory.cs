@@ -30,12 +30,16 @@ public readonly struct FluentFilterFactory
     /// <returns>Filter for searching in MongoDb collections expressed as <see cref="BsonDocument"/>.</returns>
     public BsonDocument Create(Func<String, BsonValue> expressionEvaluator)
     {
-        var executor = new ResultExecutor(
-            m_entries,
-            m_startIndex,
-            Ensure.NotNull(expressionEvaluator, nameof(expressionEvaluator)));
+        Ensure.NotNull(expressionEvaluator, nameof(expressionEvaluator));
 
-        return executor.Execute();
+        if (m_entries.Count == 0 && m_startIndex == -1)
+        {
+            return new BsonDocument();
+        }
+        else
+        {
+            return new ResultExecutor(m_entries, m_startIndex, expressionEvaluator).Execute();
+        }
     }
 
     /// <summary>
