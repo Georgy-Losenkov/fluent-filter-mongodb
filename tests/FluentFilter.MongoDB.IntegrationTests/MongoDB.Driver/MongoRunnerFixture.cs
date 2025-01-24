@@ -19,8 +19,8 @@ public class MongoRunnerFixture : IDisposable
             StandardErrorLogger = line => Debug.WriteLine(line), // Default: null
             // DataDirectory = "/path/to/data/", // Default: null
             // BinaryDirectory = "/path/to/mongo/bin/", // Default: null
-            ConnectionTimeout = TimeSpan.FromSeconds(10), // Default: 30 seconds
-            ReplicaSetSetupTimeout = TimeSpan.FromSeconds(5), // Default: 10 seconds
+            ConnectionTimeout = TimeSpan.FromSeconds(30), // Default: 30 seconds
+            ReplicaSetSetupTimeout = TimeSpan.FromSeconds(10), // Default: 10 seconds
             AdditionalArguments = "--quiet", // Default: null
             MongoPort = null, // Default: random available port
 
